@@ -98,6 +98,7 @@ export default class CLI {
       if (command === 'doctor') {
         kernel.optsPlugins.push('@tarojs/plugin-doctor')
       } else if (commandPlugins.includes(targetPlugin)) {
+        // optsPlugins 注入 ./commands/build.ts 插件
         // 针对不同的内置命令注册对应的命令插件
         kernel.optsPlugins.push(path.resolve(commandsPath, targetPlugin))
       }
@@ -125,6 +126,7 @@ export default class CLI {
             case 'jd':
             case 'h5':
             case 'harmony-hybrid':
+              // optsPlugins `@tarojs/plugin-platform-${platform}`) 注入平台插件
               kernel.optsPlugins.push(`@tarojs/plugin-platform-${platform}`)
               break
             default: {
@@ -140,6 +142,7 @@ export default class CLI {
 
           // 根据 framework 启用插件
           const framework = kernel.config?.initialConfig.framework || DEFAULT_FRAMEWORK
+          // optsPlugins `@tarojs/plugin-framework-${framework}`) 注入平台插件
           const frameworkMap = {
             vue3: '@tarojs/plugin-framework-vue3',
             react: '@tarojs/plugin-framework-react',

@@ -68,6 +68,18 @@ export function resolvePresetsOrPlugins (root: string, args: IPluginsObject, typ
         process.exit(1)
       }
     }
+    /**
+     * fPath 类似：
+     * /Users/sunguangbiao/work/myApp/node_modules/.pnpm/@tarojs+cli@4.0.7/node_modules/@tarojs/cli/dist/presets/index.js
+/Users/sunguangbiao/work/myApp/node_modules/.pnpm/@tarojs+cli@4.0.7/node_modules/@tarojs/cli/dist/presets/hooks/build.js
+/Users/sunguangbiao/work/myApp/node_modules/.pnpm/@tarojs+cli@4.0.7/node_modules/@tarojs/cli/dist/presets/hooks/create.js
+/Users/sunguangbiao/work/myApp/node_modules/.pnpm/@tarojs+cli@4.0.7/node_modules/@tarojs/cli/dist/presets/files/writeFileToDist.js
+/Users/sunguangbiao/work/myApp/node_modules/.pnpm/@tarojs+cli@4.0.7/node_modules/@tarojs/cli/dist/presets/files/generateProjectConfig.js
+/Users/sunguangbiao/work/myApp/node_modules/.pnpm/@tarojs+cli@4.0.7/node_modules/@tarojs/cli/dist/presets/files/generateFrameworkInfo.js
+/Users/sunguangbiao/work/myApp/node_modules/.pnpm/@tarojs+cli@4.0.7/node_modules/@tarojs/cli/dist/presets/commands/build.js
+/Users/sunguangbiao/work/myApp/node_modules/@tarojs/plugin-platform-weapp/index.js
+/Users/sunguangbiao/work/myApp/node_modules/@tarojs/plugin-framework-react/index.js
+     */
     const resolvedItem = {
       id: fPath,
       path: fPath,

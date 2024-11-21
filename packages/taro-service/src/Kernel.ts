@@ -107,10 +107,12 @@ export default class Kernel extends EventEmitter {
     this.debugger('initRunnerUtils')
   }
 
+  /** 初始化 presets 和 plugin 注册 build 命令等 */
   initPresetsAndPlugins () {
     const initialConfig = this.initialConfig
     const initialGlobalConfig = this.initialGlobalConfig
     const cliAndProjectConfigPresets = mergePlugins(this.optsPresets || [], initialConfig.presets || [])()
+    // optsPlugins 是字符串形式 类似：@tarojs/plugin-platform-${platform}
     const cliAndProjectPlugins = mergePlugins(this.optsPlugins || [], initialConfig.plugins || [])()
     const globalPlugins = convertPluginsToObject(initialGlobalConfig.plugins || [])()
     const globalPresets = convertPluginsToObject(initialGlobalConfig.presets || [])()
@@ -272,6 +274,25 @@ export default class Kernel extends EventEmitter {
     })
   }
 
+  /** 可以通过 name 调用插件 的 run 方法
+   *    ctx.registerCommand({
+   *      name: 'build',
+   *    })
+  *     ctx.registerPlatform({
+          name: 'weapp',
+          useConfigName: 'mini',
+          async fn ({ config }) {
+            const program = new Weapp(ctx, config, options || {})
+            await program.start()
+          }
+        })
+   *
+   *
+   *
+   *
+   *
+   *
+  */
   async applyPlugins (args: string | { name: string, initialVal?: any, opts?: any }) {
     let name
     let initialVal
@@ -386,6 +407,7 @@ export default class Kernel extends EventEmitter {
       })
     }
 
+    // 调用 "build" packages/taro-cli/src/presets/commands/build.ts
     await this.applyPlugins({
       name,
       opts

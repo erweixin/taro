@@ -107,6 +107,7 @@ export default (ctx: IPluginContext) => {
       const isBuildNativeComp = _[1] === 'native-components'
 
       await ctx.applyPlugins(hooks.ON_BUILD_START)
+      // 调用 @tarojs/plugin-platform-${platform} 插件的 run 方法
       await ctx.applyPlugins({
         name: platform,
         opts: {
