@@ -73,12 +73,6 @@ interface ButtonProps extends StandardProps {
    * @supported weapp, swan
    */
   sessionFrom?: string
-  /** 一次性订阅消息的模板 notify_type
-   *  @see https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/subscribe-message-2.html
-   * 生效时机：`open-type="liveActivity"`
-   * @supported weapp
-   */
-  activityType?: string
   /** 会话内消息卡片标题
    *
    * 生效时机：`open-type="contact"`
@@ -136,7 +130,7 @@ interface ButtonProps extends StandardProps {
   /** 群聊 id
    * @qq 打开群资料卡时，传递的群号
    * @tt 通过创建聊天群、查询群信息获取
-   * @supported qq, tt
+   * @supported qq
    */
   groupId?: string
   /** 打开频道页面时，传递的频道号
@@ -173,15 +167,6 @@ interface ButtonProps extends StandardProps {
    * @supported qq
    */
   shareMessageImg?: string
-  /** 跳转抖音号个人页，只支持小程序绑定的品牌号、员工号、合作号
-   * @supported tt
-   */
-  dataAwemeId?: string
-  /**
-   * 是否开启半屏模式
-   * @supported tt
-   */
-  dataIsHalfPage?: boolean
   /** 用户点击该按钮时，会返回获取到的用户信息，回调的detail数据与 Taro.getUserInfo 返回的一致
    *
    * 生效时机: `open-type="getUserInfo"`
@@ -206,11 +191,6 @@ interface ButtonProps extends StandardProps {
    * @supported weapp, alipay, swan, tt, jd
    */
   onGetPhoneNumber?: CommonEventFunction<ButtonProps.onGetPhoneNumberEventDetail>
-  /**
-   * 手机号实时验证回调，`open-type="getRealtimePhoneNumber"` 时有效
-   * @supported weapp
-   */
-  onGetRealTimePhoneNumber?: CommonEventFunction<ButtonProps.onGetRealTimePhoneNumberEventDetail>
   /** 当使用开放能力时，发生错误的回调
    *
    * 生效时机：`open-type="launchApp"`
@@ -235,11 +215,6 @@ interface ButtonProps extends StandardProps {
    * @supported weapp
    */
   onChooseAvatar?: CommonEventFunction
-  /**
-   * 用户同意隐私协议事件回调，`open-type="agreePrivacyAuthorization"`时有效
-   * @supported weapp
-   */
-  onAgreePrivacyAuthorization?: CommonEventFunction
   /** 点击。
    * 说明： 每点击一次会触发一次事件，建议自行使用代码防止重复点击,可以使用 js 防抖和节流实现。
    * @supported alipay
@@ -278,24 +253,6 @@ interface ButtonProps extends StandardProps {
    * @supported qq
    */
   onAddGroupApp?: CommonEventFunction
-  /** 监听跳转抖音号个人页的回调
-   *
-   * 生效时机：`open-type="openAwemeUserProfile"`
-   * @supported tt
-   */
-  onOpenAwemeUserProfile?: CommonEventFunction
-  /**
-   * 加群后触发
-   * @supported tt
-   */
-  onJoinGroup?: CommonEventFunction<{ errMsg: string; errNo: number }>
-  /**
-   * 监听用户一次性订阅消息事件
-   *
-   * 生效时机：`open-type="liveActivity"`
-   * @supported weapp
-   */
-  onCreateLiveActivity?: CommonEventFunction<ButtonProps.onCreateLiveActivityEventDetail>
 }
 declare namespace ButtonProps {
   /** size 的合法值 */
@@ -363,10 +320,6 @@ declare namespace ButtonProps {
        * 用户同意隐私协议按钮。可通过 bindagreeprivacyauthorization 监听用户同意隐私协议事件
        */
       agreePrivacyAuthorization
-      /**
-       * 新版一次性订阅消息按钮。可通过 bindcreateliveactivity 监听用户一次性订阅消息事件
-       */
-      liveActivity
       /**
        * 从基础库 2.32.3 版本起，隐私同意按钮支持与手机号快速验证组件耦合使用，调用方式为：
        * <button open-type="getPhoneNumber|agreePrivacyAuthorization">
@@ -540,10 +493,6 @@ declare namespace ButtonProps {
     errMsg: string
     /* 用户授权结果 */
     authSetting: Record<string, boolean>
-  }
-
-  interface onCreateLiveActivityEventDetail {
-    code: string
   }
 }
 /** 按钮
